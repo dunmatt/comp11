@@ -96,4 +96,4 @@ if __name__ == "__main__":
     build("3wordsort.cpp", "3wordsort")
     build("chkdate.cpp", "chkdate")
 
-    unittest.loadTestsFromNames(["TestMax3", "Test3WordSort", "TestChkDate"]).run()
+    unittest.defaultTestLoader.loadTestsFromNames(["TestMax3", "Test3WordSort", "TestChkDate"]).run()
