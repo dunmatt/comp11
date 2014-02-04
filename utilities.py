@@ -3,7 +3,9 @@
 """
 
 import fnmatch
+import subprocess
 import sys
+from tempfile import TemporaryFile
 
 def screenFilenames(filenames, submission_filters):
     fs = set(filenames)
@@ -14,8 +16,8 @@ def screenFilenames(filenames, submission_filters):
         sys.exit(1)
 
     def isPermitted(filename):
-        for filt in submission_filters["permitted"]:
-            if fnmatch.fnmatch(filename, filt):
+        for filtr in submission_filters["permitted"]:
+            if fnmatch.fnmatch(filename, filtr):
                 return True
         return False
     unaccounted_for = fs - rs
@@ -24,6 +26,23 @@ def screenFilenames(filenames, submission_filters):
         print "Unrecognized filenames: %s" % ", ".join(not_permitted)
         sys.exit(2)
 
+def build(sources, binary):
+    return run("g++", ["-Wall", "-Wextra"] + list(sources) + ["-o", binary])
 
+def run(program, args=[], stdin=None):
+    tempIn = TemporaryFile(mode="w+")
+    if stdin:
+        tempIn.write(stdin)
+        tempIn.seek(0)
+    tempOut = TemporaryFile(mode="w+")
+    tempErr = TemporaryFile(mode="w+")
+    cmd = [program] + args
+    return_code = subprocess.run(cmd
+                                 , stdin=tempIn
+                                 , stdout=tempOut
+                                 , stderr=tempErr)
+    tempOut.seek(0)
+    tempErr.seek(0)
+    return (return_code, tempOut.read(), tempErr.read())
 
 
