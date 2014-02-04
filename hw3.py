@@ -2,7 +2,7 @@
 """HW3 Grading Script
 
 Usage:
-    ./hw3.py <dir> <assignment> <files>...
+    ./hw3.py <dir> <files>...
 """
 #TODO: double check the args to this script
 
