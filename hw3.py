@@ -87,10 +87,18 @@ class TestChkDate(unittest.TestCase):
         self.assertEqual(run("chkdate", [], "2 3 1900")[1], "Y")
 
 
+test_cases = (TestMax3, Test3WordSort, TestChkDate)
+
+def load_tests(loader, tests, pattern):
+    suite = TestSuite()
+    for test_class in test_cases:
+        tests = loader.loadTestsFromTestCase(test_class)
+        suite.addTests(tests)
+    return suite
+
 if __name__ == "__main__":
     from docopt import docopt
     arguments = docopt(__doc__, version="Tufts Comp11 HW3 v2014s")
-    print arguments["<files>"]
     screenFilenames(arguments["<files>"], submission_filters)
 
     build("max3.cpp", "max3")
