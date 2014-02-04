@@ -16,16 +16,8 @@ submission_filters = {
     , "permitted": []
 }
 
-def m3(str):
-    return max(map(lambda s: float(s), str.split()))
-
-def s3(str):
-    return sorted(str.split())
-
 max3DataValidationRegex = r"(((?:-?\d*\.?\d+\s*){3}):\s*(-?\d*\.?\d+)\s*){4}"
 max3LineRegex = r"^((?:-?\d*\.?\d+\s*){3}):\s*(-?\d*\.?\d+)\s+$"
-twsDataValidationRegex = r"(\S+\s+\S+\s+\S+\s*:\s*\S+\s+\S+\s+\S+\s*){4}"
-twsLineRegex = r"^(\S+\s+\S+\s+\S+)\s*:\s*(\S+\s+\S+\s+\S+)\s*$"
 
 def max3(stdin):
     r"""Test max3.
@@ -43,39 +35,55 @@ def max3(stdin):
     >>> max3(".000000001 0 -.000000001") == .000000001  # Does it handle tiny fractions correctly?
     True
     """
-    return float(run("max3", [], stdin)[1])
+    return max(map(lambda s: float(s), stdin.split()))
+    # return float(run("max3", [], stdin)[1])
+
+twsDataValidationRegex = r"(\S+\s+\S+\s+\S+\s*:\s*\S+\s+\S+\s+\S+\s*){4}"
+twsLineRegex = r"^(\S+\s+\S+\s+\S+)\s*:\s*(\S+\s+\S+\s+\S+)\s*$"
 
 def threeWordSort(stdin):
     r"""Test 3wordsort.
+
+    >>> grep("3wordsort.data", twsDataValidationRegex) is not None  # Is the data file in the correct and long enough?
+    True
+    >>> all([threeWordSort(m.group(1)) == m.group(2) for m in lineMatchesIn("3wordsort.data", twsLineRegex)])  # Do all of the examples in the data file work?
+    True
+    >>> threeWordSort("a a a") == "a a a"  # Does it work when all inputs are the same?
+    True
+    >>> threeWordSort("aaa a aa") == "a aa aaa"  # Does it correctly use length to break ties?
+    True
+    >>> threeWordSort("as is oz") == "as is oz"  # Does it leave already sorted words alone?
+    True
+    >>> threeWordSort("4s 1s 0z") == "0z 1s 4s"  # Does it work with alphanumeric strings?
+    True
+    >>> threeWordSort("1 5 1000") == "1 1000 5"  # Does it sort numbers lexically instead of numerically?
+    True
+    >>> threeWordSort("0! a! !!") == "!! 0! a!"  # Does it sort mixed types correctly?
+    True
     """
-    pass
-    # run("3wordsort", [], stdin)[1]
+    return " ".join(sorted(stdin.split()))
+    # return run("3wordsort", [], stdin)[1]
 
-# class Test3WordSort(unittest.TestCase):
-#     def test_data_file(self):
-#         testDataFile(self, "3wordsort.data"
-#                      , )  # YES!
+chkdateDataValidationRegex = r"(\d+\s+\d+\s+\d+\s*:\s*[YN]\s+){4}"
+chkdateLineRegex = r"^(\d+\s+\d+\s+\d+)\s*:\s*([YN])\s*$"
 
-#     def test_against_data_in_file(self):
-#         testAgainstFile(self, "3wordsort.data", "3wordsort"
-#                         , )
+def chkDate(stdin):
+    r"""Test chkdate.
 
-#     def test_corner_cases(self):
-#         self.assertEqual(run("3wordsort", [], "aaa a aa")[1], "a aa aaa")
-#         self.assertEqual(run("3wordsort", [], "as is oz")[1], "as is oz")
-#         self.assertEqual(run("3wordsort", [], "4s 1s 0z")[1], "0z 1s 4s")
-#         self.assertEqual(run("3wordsort", [], "1 5 1000")[1], "1 1000 5")
-#         self.assertEqual(run("3wordsort", [], "0! a! !!")[1], "!! 0! a!")
-
+    >>> grep("chkdate.data", chkdateDataValidationRegex) is not None  # Is the data file in the correct and long enough?
+    True
+    >>> all([chkDate(m.group(1)) == m.group(2) for m in lineMatchesIn("chkdate.data", chkdateLineRegex)])  # Do all of the examples in the data file work?
+    True
+    """
+    return False
+    return run("chkdate", [], stdin)
 
 # class TestChkDate(unittest.TestCase):
 #     def test_data_file(self):
 #         testDataFile(self, "chkdate.data"
-#                      , r"(\d+\s+\d+\s+\d+\s*:\s*[YN]\s+){4}")
 
 #     def test_against_data_in_file(self):
 #         testAgainstFile(self, "chkdate.data", "chkdate"
-#                         , r"^(\d+\s+\d+\s+\d+)\s*:\s*([YN])\s*$")
 
 #     def test_corner_cases(self):
 #         self.assertEqual(run("chkdate", [], "12 13 1415")[1], "Y")
