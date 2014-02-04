@@ -37,10 +37,10 @@ def run(program, args=[], stdin=None):
     tempOut = TemporaryFile(mode="w+")
     tempErr = TemporaryFile(mode="w+")
     cmd = [program] + args
-    return_code = subprocess.run(cmd
-                                 , stdin=tempIn
-                                 , stdout=tempOut
-                                 , stderr=tempErr)
+    return_code = subprocess.call(cmd
+                                  , stdin=tempIn
+                                  , stdout=tempOut
+                                  , stderr=tempErr)
     tempOut.seek(0)
     tempErr.seek(0)
     return (return_code, tempOut.read(), tempErr.read())
