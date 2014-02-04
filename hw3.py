@@ -90,7 +90,7 @@ class TestChkDate(unittest.TestCase):
 if __name__ == "__main__":
     from docopt import docopt
     arguments = docopt(__doc__, version="Tufts Comp11 HW3 v2014s")
-
+    print arguments["<files>"]
     screenFilenames(arguments["<files>"], submission_filters)
 
     build("max3.cpp", "max3")
