@@ -25,8 +25,8 @@ def max3(stdin):
     >>> max3(".000000001 0 -.000000001") == .000000001  # Does it handle tiny fractions correctly?
     True
     """
-    return max(map(float, stdin.split()))
-    # return float(run("max3", [], stdin)[1])
+    # return max(map(float, stdin.split()))
+    return float(run("./max3", [], stdin)[1])
 
 twsDataValidationRegex = r"(\S+\s+\S+\s+\S+\s*:\s*\S+\s+\S+\s+\S+\s*){4}"
 twsLineRegex = r"^(\S+\s+\S+\s+\S+)\s*:\s*(\S+\s+\S+\s+\S+)\s*$"
@@ -51,8 +51,8 @@ def threeWordSort(stdin):
     >>> threeWordSort("0! a! !!") == "!! 0! a!"  # Does it sort mixed types correctly?
     True
     """
-    return " ".join(sorted(stdin.split()))
-    # return run("3wordsort", [], stdin)[1]
+    # return " ".join(sorted(stdin.split()))
+    return run("./3wordsort", [], stdin)[1]
 
 chkdateDataValidationRegex = r"(\d+\s+\d+\s+\d+\s*:\s*[YN]\s+){4}"
 chkdateLineRegex = r"^(\d+\s+\d+\s+\d+)\s*:\s*([YN])\s*$"
@@ -104,8 +104,8 @@ def chkDate(stdin):
     >>> chkDate("2 30 2000")   # Works without padding?  And also there is no Feb 30th...
     'N'
     """
-    return "Y" if dateCheck(stdin) else "N"
-    # return run("chkdate", [], stdin)[1]
+    # return "Y" if dateCheck(stdin) else "N"
+    return run("./chkdate", [], stdin)[1]
 
 if __name__ == "__main__":
     import doctest
