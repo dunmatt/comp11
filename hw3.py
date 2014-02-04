@@ -24,6 +24,8 @@ def s3(str):
 
 max3DataValidationRegex = r"(((?:-?\d*\.?\d+\s*){3}):\s*(-?\d*\.?\d+)\s*){4}"
 max3LineRegex = r"^((?:-?\d*\.?\d+\s*){3}):\s*(-?\d*\.?\d+)\s+$"
+twsDataValidationRegex = r"(\S+\s+\S+\s+\S+\s*:\s*\S+\s+\S+\s+\S+\s*){4}"
+twsLineRegex = r"^(\S+\s+\S+\s+\S+)\s*:\s*(\S+\s+\S+\s+\S+)\s*$"
 
 def max3(stdin):
     r"""Test max3.
@@ -41,36 +43,22 @@ def max3(stdin):
     >>> max3(".000000001 0 -.000000001") == .000000001  # Does it handle tiny fractions correctly?
     True
     """
-    float(run("max3", [], stdin)[1])
+    return float(run("max3", [], stdin)[1])
 
-def testAgainstFile(tester, filename, progname, lineRegex):
-    with open(filename) as f:
-        for line in f:
-            match = re.match(lineRegex, line)
-            self.assertEqual(run(progname, [], match.group(1))[1]
-                             , match.group(2))
-    
-
-# class TestMax3(unittest.TestCase):
-#     def test_data_file(self):
-#         testDataFile(self, "max3.data"
-#                      , r"(((?:-?\d*\.?\d+\s*){3}):\s*(-?\d*\.?\d+)\s+){4}")
-
-#     def test_against_data_in_file(self):
-#         testAgainstFile(self, "max3.data", "max3"
-#                         , r"^((?:-?\d*\.?\d+\s*){3}):\s*(-?\d*\.?\d+)\s+$")
-
-#     def test_corner_cases(self):
-
+def threeWordSort(stdin):
+    r"""Test 3wordsort.
+    """
+    pass
+    # run("3wordsort", [], stdin)[1]
 
 # class Test3WordSort(unittest.TestCase):
 #     def test_data_file(self):
 #         testDataFile(self, "3wordsort.data"
-#                      , r"(\S+\s+\S+\s+\S+\s*:\s*\S+\s+\S+\s+\S+\s*){4}")  # YES!
+#                      , )  # YES!
 
 #     def test_against_data_in_file(self):
 #         testAgainstFile(self, "3wordsort.data", "3wordsort"
-#                         , r"^(\S+\s+\S+\s+\S+)\s*:\s*(\S+\s+\S+\s+\S+)\s*$")
+#                         , )
 
 #     def test_corner_cases(self):
 #         self.assertEqual(run("3wordsort", [], "aaa a aa")[1], "a aa aaa")
