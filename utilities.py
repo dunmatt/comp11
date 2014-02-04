@@ -57,6 +57,6 @@ def run(program, args=[], stdin=None):
     tempErr.seek(0)
     return (return_code, tempOut.read(), tempErr.read())
 
-def getScorecard(directory):
-    print directory
-    return TemporaryFile(mode="w+")
+def getScorecard(directory, assignment):
+    me = run("whoami")[1].strip()
+    return open("%s/scorecards/%s/%s" % (directory, assignment, me), mode="w+")
