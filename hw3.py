@@ -77,13 +77,14 @@ class TestChkDate(unittest.TestCase):
         self.assertEqual(run("chkdate", [], "1 1 0")[1], "N")
         self.assertEqual(run("chkdate", [], "1 0 1")[1], "N")
         self.assertEqual(run("chkdate", [], "0 1 1")[1], "N")
-        self.assertEqual(run("chkdate", [], "12 31 9999")[1], "Y")
         self.assertEqual(run("chkdate", [], "12 -1 9999")[1], "N")
-        self.assertEqual(run("chkdate", [], "02 29 2001")[1], "N")
-        self.assertEqual(run("chkdate", [], "02 29 2000")[1], "Y")
+        self.assertEqual(run("chkdate", [], "12 31 9999")[1], "Y")
         self.assertEqual(run("chkdate", [], "02 29 1900")[1], "N")
+        self.assertEqual(run("chkdate", [], "02 29 2000")[1], "Y")
+        self.assertEqual(run("chkdate", [], "02 29 2001")[1], "N")
         self.assertEqual(run("chkdate", [], "02 29 2004")[1], "Y")
-        self.assertEqual(run("chkdate", [], "2 30 1900")[1], "N")
+        self.assertEqual(run("chkdate", [], "2 30 2000")[1], "N")
+        self.assertEqual(run("chkdate", [], "2 3 1900")[1], "Y")
 
 
 if __name__ == "__main__":
