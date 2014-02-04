@@ -39,7 +39,7 @@ def lineMatchesIn(filename, regex):
                 yield match
 
 def build(sources, binary):
-    return run("g++", ["-Wall", "-Wextra"] + list(sources) + ["-o", binary])
+    return run("g++", ["-Wall", "-Wextra"] + sources + ["-o", binary])
 
 def run(program, args=[], stdin=None):
     tempIn = TemporaryFile(mode="w+")
