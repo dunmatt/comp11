@@ -1,19 +1,10 @@
 #!/usr/bin/env python
 """HW3 Grading Script
 
-Usage:
-    ./hw3.py <dir> <files>...
+Note: Do not run this directly, it is called by hw3.py.
 """
 
-import re
 from utilities import *
-
-submission_filters = {
-    "required": ["max3.cpp", "max3.data"
-                 , "3wordsort.cpp", "3wordsort.data"
-                 , "chkdate.cpp", "chkdate.data"]
-    , "permitted": []
-}
 
 max3DataValidationRegex = r"(((?:-?\d*\.?\d+\s*){3}):\s*(-?\d*\.?\d+)\s*){4}"
 max3LineRegex = r"^((?:-?\d*\.?\d+\s*){3}):\s*(-?\d*\.?\d+)\s+$"
@@ -116,17 +107,7 @@ def chkDate(stdin):
     return "Y" if dateCheck(stdin) else "N"
     # return run("chkdate", [], stdin)[1]
 
-
-
 if __name__ == "__main__":
-    from docopt import docopt
-    arguments = docopt(__doc__, version="Tufts Comp11 HW3 v2014s")
-    # screenFilenames(arguments["<files>"], submission_filters)
-
-    # build("max3.cpp", "max3")
-    # build("3wordsort.cpp", "3wordsort")
-    # build("chkdate.cpp", "chkdate")
-
     import doctest
     (failureCount, testCount) = doctest.testmod()
     print "You got %s / %s" % (testCount - failureCount, testCount)
