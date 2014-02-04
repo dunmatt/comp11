@@ -59,4 +59,4 @@ def run(program, args=[], stdin=None):
 
 def getScorecard(directory):
     print directory
-    pass
+    return TemporaryFile(mode="w+")
