@@ -105,7 +105,7 @@ def chkDate(stdin):
     'N'
     """
     # return "Y" if dateCheck(stdin) else "N"
-    return run("./chkdate", [], stdin)[1]
+    return run("./chkdate", [], stdin)[1].strip()
 
 if __name__ == "__main__":
     import doctest
