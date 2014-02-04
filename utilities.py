@@ -3,6 +3,7 @@
 """
 
 import fnmatch
+import re
 import subprocess
 import sys
 from tempfile import TemporaryFile
@@ -25,6 +26,17 @@ def screenFilenames(filenames, submission_filters):
     if not_permitted:
         print "Unrecognized filenames: %s" % ", ".join(not_permitted)
         sys.exit(2)
+
+def grep(filename, regex):
+    with open(filename) as f:
+        return re.search(regex, f.read())
+
+def lineMatchesIn(filename, regex):
+    with open(filename) as f:
+        for line in f:
+            match = re.match(regex, line)
+            if match:
+                yield match
 
 def build(sources, binary):
     return run("g++", ["-Wall", "-Wextra"] + list(sources) + ["-o", binary])
