@@ -7,6 +7,7 @@ Usage:
 #TODO: double check the args to this script
 
 import re
+import sys
 import unittest
 from utilities import *
 
@@ -96,6 +97,4 @@ if __name__ == "__main__":
     build("3wordsort.cpp", "3wordsort")
     build("chkdate.cpp", "chkdate")
 
-    import sys
-    unittest.defaultTestLoader.loadTestsFromModule(sys.modules[__name__])
-    # unittest.defaultTestLoader.loadTestsFromNames([TestMax3, Test3WordSort, TestChkDate]).run()
+    unittest.defaultTestLoader.loadTestsFromModule(sys.modules[__name__]).run()
