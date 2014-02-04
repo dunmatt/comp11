@@ -57,4 +57,6 @@ def run(program, args=[], stdin=None):
     tempErr.seek(0)
     return (return_code, tempOut.read(), tempErr.read())
 
-
+def getScorecard(directory):
+    print directory
+    pass

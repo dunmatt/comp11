@@ -23,6 +23,7 @@ if __name__ == "__main__":
     # build("3wordsort.cpp", "3wordsort")
     # build("chkdate.cpp", "chkdate")
 
-    stdout = run("hw3_test.py")[1]
+    (return_code, stdout, stderr) = run("hw3_test.py")
     print stdout
-    # TODO: save stdout to the scorecard
+    with getScorecard(arguments["<dir>"]) as f:
+        f.write(stdout)
