@@ -97,4 +97,5 @@ if __name__ == "__main__":
     build("3wordsort.cpp", "3wordsort")
     build("chkdate.cpp", "chkdate")
 
-    unittest.defaultTestLoader.loadTestsFromModule(sys.modules[__name__]).run()
+    unittest.main(sys.modules[__name__])
+    # unittest.defaultTestLoader.loadTestsFromModule(sys.modules[__name__]).run()
