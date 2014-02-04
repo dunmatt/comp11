@@ -4,7 +4,6 @@
 Usage:
     ./hw3.py <dir> <files>...
 """
-#TODO: double check the args to this script
 
 import re
 from utilities import *
@@ -35,7 +34,7 @@ def max3(stdin):
     >>> max3(".000000001 0 -.000000001") == .000000001  # Does it handle tiny fractions correctly?
     True
     """
-    return max(map(lambda s: float(s), stdin.split()))
+    return max(map(float, stdin.split()))
     # return float(run("max3", [], stdin)[1])
 
 twsDataValidationRegex = r"(\S+\s+\S+\s+\S+\s*:\s*\S+\s+\S+\s+\S+\s*){4}"
@@ -66,6 +65,19 @@ def threeWordSort(stdin):
 
 chkdateDataValidationRegex = r"(\d+\s+\d+\s+\d+\s*:\s*[YN]\s+){4}"
 chkdateLineRegex = r"^(\d+\s+\d+\s+\d+)\s*:\s*([YN])\s*$"
+def dateCheck(str):
+    (month, day, year) = map(int, str.split())
+    if day < 1 or 31 < day or month < 1 or 12 < month or year < 1 or 9999 < year:
+        return False
+    if month == 2 and day == 29 and year % 4 == 0 and (not year % 100 == 0 or year % 400 == 0):
+        return True
+    if month == 2 and day >= 29:
+        return False
+    if day == 31 and month in [1, 3, 5, 7, 8, 10, 12]:
+        return True
+    if day == 31:
+        return False
+    return True
 
 def chkDate(stdin):
     r"""Test chkdate.
@@ -74,31 +86,36 @@ def chkDate(stdin):
     True
     >>> all([chkDate(m.group(1)) == m.group(2) for m in lineMatchesIn("chkdate.data", chkdateLineRegex)])  # Do all of the examples in the data file work?
     True
+    >>> chkDate("12 13 1415")  # Dec 13 1415?
+    'Y'
+    >>> chkDate("1 1 1")  # Jan 1 0001?
+    'Y'
+    >>> chkDate("1 1 0")  # Year zero?
+    'N'
+    >>> chkDate("1 0 1")  # Jan 0th?
+    'N'
+    >>> chkDate("0 1 1")  # Prebruary?
+    'N'
+    >>> chkDate("12 -1 9999")  # Dec negative 1?
+    'N'
+    >>> chkDate("12 31 9999")  # Dec 31 9999?
+    'Y'
+    >>> chkDate("11 31 9999")  # Nov 31 9999?
+    'N'
+    >>> chkDate("02 29 1900")  # Handles the 100 year leap year exception?
+    'N'
+    >>> chkDate("02 29 2000")  # Handles the 400 year exception to the 100 year exception?
+    'Y'
+    >>> chkDate("02 29 2001")  # Handles non-leap years?
+    'N'
+    >>> chkDate("02 29 2004")  # Handles normal leap years?
+    'Y'
+    >>> chkDate("2 30 2000")   # Works without padding?  And also there is no Feb 30th...
+    'N'
     """
-    return False
-    return run("chkdate", [], stdin)
+    return "Y" if dateCheck(stdin) else "N"
+    # return run("chkdate", [], stdin)[1]
 
-# class TestChkDate(unittest.TestCase):
-#     def test_data_file(self):
-#         testDataFile(self, "chkdate.data"
-
-#     def test_against_data_in_file(self):
-#         testAgainstFile(self, "chkdate.data", "chkdate"
-
-#     def test_corner_cases(self):
-#         self.assertEqual(run("chkdate", [], "12 13 1415")[1], "Y")
-#         self.assertEqual(run("chkdate", [], "1 1 1")[1], "Y")
-#         self.assertEqual(run("chkdate", [], "1 1 0")[1], "N")
-#         self.assertEqual(run("chkdate", [], "1 0 1")[1], "N")
-#         self.assertEqual(run("chkdate", [], "0 1 1")[1], "N")
-#         self.assertEqual(run("chkdate", [], "12 -1 9999")[1], "N")
-#         self.assertEqual(run("chkdate", [], "12 31 9999")[1], "Y")
-#         self.assertEqual(run("chkdate", [], "02 29 1900")[1], "N")
-#         self.assertEqual(run("chkdate", [], "02 29 2000")[1], "Y")
-#         self.assertEqual(run("chkdate", [], "02 29 2001")[1], "N")
-#         self.assertEqual(run("chkdate", [], "02 29 2004")[1], "Y")
-#         self.assertEqual(run("chkdate", [], "2 30 2000")[1], "N")
-#         self.assertEqual(run("chkdate", [], "2 3 1900")[1], "Y")
 
 
 if __name__ == "__main__":
@@ -111,4 +128,5 @@ if __name__ == "__main__":
     # build("chkdate.cpp", "chkdate")
 
     import doctest
-    doctest.testmod()
+    (failureCount, testCount) = doctest.testmod()
+    print "You got %s / %s" % (testCount - failureCount, testCount)
