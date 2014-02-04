@@ -27,12 +27,13 @@ if __name__ == "__main__":
         print err0
         print err1
         print err2
-        with getScorecard(arguments["<dir>"]) as f:
+        with getScorecard(arguments["<dir>"], "hw3beta") as f:
             f.write(err0)
             f.write(err1)
             f.write(err2)
     else:
         (return_code, stdout, stderr) = run("../../tests/hw3/hw3_test.py")
         print stdout
-        with getScorecard(arguments["<dir>"]) as f:
+        with getScorecard(arguments["<dir>"], "hw3beta") as f:
             f.write(stdout)
+
