@@ -34,7 +34,7 @@ twsLineRegex = r"^(\S+\s+\S+\s+\S+)\s*:\s*(\S+\s+\S+\s+\S+)\s*$"
 def threeWordSort(stdin):
     r"""Test 3wordsort.
 
-    >>> grep("3wordsort.data", twsDataValidationRegex) is not None  # Is the data file in the correct and long enough?
+    >>> grep("3wordsort.data", twsDataValidationRegex) is not None  # Is the data file in the correct format and long enough?
     True
     >>> all([threeWordSort(m.group(1)) == m.group(2) for m in lineMatchesIn("3wordsort.data", twsLineRegex)])  # Do all of the examples in the data file work?
     True
@@ -73,7 +73,7 @@ def dateCheck(str):
 def chkDate(stdin):
     r"""Test chkdate.
 
-    >>> grep("chkdate.data", chkdateDataValidationRegex) is not None  # Is the data file in the correct and long enough?
+    >>> grep("chkdate.data", chkdateDataValidationRegex) is not None  # Is the data file in the correct format and long enough?
     True
     >>> all([chkDate(m.group(1)) == m.group(2) for m in lineMatchesIn("chkdate.data", chkdateLineRegex)])  # Do all of the examples in the data file work?
     True
