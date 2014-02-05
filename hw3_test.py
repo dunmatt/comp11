@@ -110,4 +110,4 @@ def chkDate(stdin):
 if __name__ == "__main__":
     import doctest
     (failureCount, testCount) = doctest.testmod()
-    print "You got %s / %s" % (testCount - failureCount, testCount)
+    print "Assignment hw3 Total: %s / %s" % (testCount - failureCount, testCount)
