@@ -52,7 +52,7 @@ def threeWordSort(stdin):
     True
     """
     # return " ".join(sorted(stdin.split()))
-    return run("./3wordsort", [], stdin)[1]
+    return run("./3wordsort", [], stdin)[1].strip()
 
 chkdateDataValidationRegex = r"(\d+\s+\d+\s+\d+\s*:\s*[YN]\s+){4}"
 chkdateLineRegex = r"^(\d+\s+\d+\s+\d+)\s*:\s*([YN])\s*$"
