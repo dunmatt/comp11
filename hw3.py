@@ -31,6 +31,8 @@ if __name__ == "__main__":
             f.write(err0)
             f.write(err1)
             f.write(err2)
+            f.write("Your code did not build!")
+            f.write("Assignment hw3 Total: 0 / 29")
     else:
         (return_code, stdout, stderr) = run("../../tests/hw3/hw3_test.py")
         print stdout
