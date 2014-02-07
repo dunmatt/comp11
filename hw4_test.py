@@ -1,0 +1,54 @@
+#!/usr/bin/env python
+"""HW3 Grading Script
+
+Note: Do not run this directly, it is called by hw4.py.
+"""
+
+from utilities import *
+
+def diag(first, second, height):
+    r"""Test diag.
+
+    >>> diag('-', 'X', 7)[:40]  # Does it print the correct prompts?
+    'First string? \nSecond string? \nHeight? \n'
+    >>> diag('-', 'X', 7)[40:]  # Does it handle single characters?
+    '------\nX-----\nXX----\nXXX---\nXXXX--\nXXXXX-\nXXXXXX'
+    >>> diag('Batman', 'NaNa', 6)[40:]  # Does it handle multi-character strings?
+    'BatmanBatmanBatmanBatmanBatman\nNaNaBatmanBatmanBatmanBatman\nNaNaNaNaBatmanBatmanBatman\nNaNaNaNaNaNaBatmanBatman\nNaNaNaNaNaNaNaNaBatman\nNaNaNaNaNaNaNaNaNaNa'
+    >>> diag('\\', '/', 5)[40:]  # Does it handle backslashes?
+    '\\\\\\\\\n/\\\\\\\n//\\\\\n///\\\n////'
+    >>> diag('\t', ' ', 5)[40:]  # Does it handle borderline-malicious whitespace?
+    '\t\t\t\t\n \t\t\t\n  \t\t\n   \t\n    '
+    """
+    return run("./diag", [], "%s %s %s"%(first, second, height))[1]
+    # return 'First string? \nSecond string? \nHeight? \n' + "\n".join([second*i + first*(height-i-1) for i in range(height)])
+
+def mirror(n):
+    r"""Test mirror.
+
+    >>> mirror(5)[:16]  # Does it print the correct prompt?
+    'Maximum value? \n'
+    >>> mirror(5)[16:]  # Does it handle reasonable numbers?
+    '012345|543210\n012345|543210\n012345|543210\n012345|543210'
+    >>> mirror(0)[16:]  # Does it handle zero?
+    '0|0\n0|0\n0|0\n0|0'
+    >>> mirror(100)[16:]  # Does it handle less reasonable numbers?
+    '0123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100|0019989796959493929190998887868584838281808978777675747372717079686766656463626160695857565554535251505948474645444342414049383736353433323130392827262524232221202918171615141312111019876543210\n0123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100|0019989796959493929190998887868584838281808978777675747372717079686766656463626160695857565554535251505948474645444342414049383736353433323130392827262524232221202918171615141312111019876543210\n0123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100|0019989796959493929190998887868584838281808978777675747372717079686766656463626160695857565554535251505948474645444342414049383736353433323130392827262524232221202918171615141312111019876543210\n0123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100|0019989796959493929190998887868584838281808978777675747372717079686766656463626160695857565554535251505948474645444342414049383736353433323130392827262524232221202918171615141312111019876543210'
+    >>> mirror(-10)[16:]  # Does it handle negative numbers?
+    ''
+    """
+    return run("./mirror", [], str(n))[1].strip()
+    # if n < 0:
+    #     return ''
+    # else:
+    #     a = "".join(map(str, range(n+1)))
+    #     # Somewhere Norman Ramsey is crying...
+    #     return ('Maximum value? \n' + (a + "|" + a[::-1] + "\n") * 4).strip()
+
+
+if __name__ == "__main__":
+    import doctest
+    (failureCount, testCount) = doctest.testmod()
+    correct = testCount - failureCount
+    print "Assignment hw4 Total: %s / %s" % (correct, testCount)
+
