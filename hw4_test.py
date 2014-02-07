@@ -6,21 +6,21 @@ Note: Do not run this directly, it is called by hw4.py.
 
 from utilities import *
 
-def diag(first, second, height):
+def diag(stdin):
     r"""Test diag.
 
-    >>> diag('-', 'X', 7)[:40]  # Does it print the correct prompts?
+    >>> diag('- X 7')[:40]  # Does it print the correct prompts?
     'First string? \nSecond string? \nHeight? \n'
-    >>> diag('-', 'X', 7)[40:]  # Does it handle single characters?
+    >>> diag('- X 7')[40:]  # Does it handle single characters?
     '------\nX-----\nXX----\nXXX---\nXXXX--\nXXXXX-\nXXXXXX'
-    >>> diag('Batman', 'NaNa', 6)[40:]  # Does it handle multi-character strings?
+    >>> diag('Batman NaNa 6')[40:]  # Does it handle multi-character strings?
     'BatmanBatmanBatmanBatmanBatman\nNaNaBatmanBatmanBatmanBatman\nNaNaNaNaBatmanBatmanBatman\nNaNaNaNaNaNaBatmanBatman\nNaNaNaNaNaNaNaNaBatman\nNaNaNaNaNaNaNaNaNaNa'
-    >>> diag('\\', '/', 5)[40:]  # Does it handle backslashes?
+    >>> diag('\\ / 5')[40:]  # Does it handle backslashes?
     '\\\\\\\\\n/\\\\\\\n//\\\\\n///\\\n////'
-    >>> diag('\t', ' ', 5)[40:]  # Does it handle borderline-malicious whitespace?
-    '\t\t\t\t\n \t\t\t\n  \t\t\n   \t\n    '
     """
-    return run("./diag", [], "%s %s %s"%(first, second, height))[1]
+    return run("./diag", [], stdin)[1].strip()
+    # (first, second, height) = stdin.split()
+    # height = int(height)
     # return 'First string? \nSecond string? \nHeight? \n' + "\n".join([second*i + first*(height-i-1) for i in range(height)])
 
 def mirror(n):
