@@ -27,8 +27,8 @@ if __name__ == "__main__":
         print err0
         print err1
         print err2
-        f.write("Your code did not build!")
-        f.write("Assignment hw3 Total: 0 / 29")
+        print "Your code did not build!"
+        print "Assignment hw3 Total: 0 / 29"
         with getScorecard(arguments["<dir>"], "hw3") as f:
             f.write(err0)
             f.write(err1)
