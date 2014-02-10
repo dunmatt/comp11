@@ -45,25 +45,28 @@ def lineMatchesIn(filename, regex):
 def build(sources, binary):
     return run("g++", ["-Wall", "-Wextra"] + sources + ["-o", binary])
 
-def run(program, args=[], stdin=None):
+def testRun(program, args=[], stdin=None):
     if programCompiled(program):
-        tempIn = TemporaryFile(mode="w+")
-        if stdin:
-            tempIn.write(stdin)
-            tempIn.seek(0)
-        tempOut = TemporaryFile(mode="w+")
-        tempErr = TemporaryFile(mode="w+")
-        cmd = [program] + args
-        return_code = subprocess.call(cmd
-                                      , stdin=tempIn
-                                      , stdout=tempOut
-                                      , stderr=tempErr)
-        tempOut.seek(0)
-        tempErr.seek(0)
-        return (return_code, tempOut.read(), tempErr.read())
+        return run(program, args, stdin)
     else:
         msg = "Cannot run %s as it did not compile..." % program
         return ("ERROR", msg, msg)
+
+def run(program, args=[], stdin=None):
+    tempIn = TemporaryFile(mode="w+")
+    if stdin:
+        tempIn.write(stdin)
+        tempIn.seek(0)
+    tempOut = TemporaryFile(mode="w+")
+    tempErr = TemporaryFile(mode="w+")
+    cmd = [program] + args
+    return_code = subprocess.call(cmd
+                                  , stdin=tempIn
+                                  , stdout=tempOut
+                                  , stderr=tempErr)
+    tempOut.seek(0)
+    tempErr.seek(0)
+    return (return_code, tempOut.read(), tempErr.read())
 
 def getScorecard(directory, assignment):
     me = run("whoami")[1].strip()

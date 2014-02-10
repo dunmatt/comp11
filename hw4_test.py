@@ -20,7 +20,7 @@ def diag(stdin):
     >>> diag('\\ / 5')[40:]  # Does it handle backslashes?
     '\\\\\\\\\n/\\\\\\\n//\\\\\n///\\\n////'
     """
-    return run("./diag", [], stdin)[1].strip()
+    return testRun("./diag", [], stdin)[1].strip()
     # (first, second, height) = stdin.split()
     # height = int(height)
     # return 'First string? \nSecond string? \nHeight? \n' + "\n".join([second*i + first*(height-i-1) for i in range(height)])
@@ -41,7 +41,7 @@ def mirror(n):
     >>> mirror(-10)[16:]  # Does it handle negative numbers?
     ''
     """
-    return run("./mirror", [], str(n))[1].strip()
+    return testRun("./mirror", [], str(n))[1].strip()
     # if n < 0:
     #     return ''
     # else:
