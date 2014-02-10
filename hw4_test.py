@@ -6,6 +6,8 @@ Note: Do not run this directly, it is called by hw4.py.
 
 from utilities import *
 
+
+
 def diag(stdin):
     r"""Test diag.
 
