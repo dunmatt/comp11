@@ -21,7 +21,7 @@ if __name__ == "__main__":
     (code1, o, err1) = build(["mirror.cpp"], "mirror")
 
     with getScorecard(arguments["<dir>"], "hw4") as f:
-        (return_code, stdout, stderr) = run("../../tests/hw4/hw3_test.py")
+        (return_code, stdout, stderr) = run("../../tests/hw4/hw4_test.py")
         f.write(stdout)
         print stdout
 

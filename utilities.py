@@ -49,8 +49,7 @@ def testRun(program, args=[], stdin=None):
     if programCompiled(program):
         return run(program, args, stdin)
     else:
-        msg = "Cannot run %s as it did not compile..." % program
-        return ("ERROR", msg, msg)
+        raise Exception("Cannot run %s since it did not compile..." % program)
 
 def run(program, args=[], stdin=None):
     tempIn = TemporaryFile(mode="w+")
