@@ -22,7 +22,7 @@ def diag(stdin):
     '\\\\\\\\\n/\\\\\\\n//\\\\\n///\\\n////'
     """
     out = testRun("./diag", [], stdin)[1].strip()
-    match = re.match(diagPromptsValidationRegex, out)
+    match = re.match(diagPromptsValidationRegex, out, flags=re.S)
     normalForm = "%s \n%s \n%s \n" % (match.group(1)
                                       , match.group(2)
                                       , match.group(3))
@@ -50,7 +50,7 @@ def mirror(n):
     ''
     """
     out = testRun("./mirror", [], str(n))[1].strip()
-    match = re.match(mirrorPromptsValidationRegex, out)
+    match = re.match(mirrorPromptsValidationRegex, out, flags=re.S)
     return ("%s \n"%match.group(1), match.group(2)) if match else (out, out)
     # if n < 0:
     #     return ''
