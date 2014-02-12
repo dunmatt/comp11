@@ -23,10 +23,13 @@ def diag(stdin):
     """
     out = testRun("./diag", [], stdin)[1].strip()
     match = re.match(diagPromptsValidationRegex, out, flags=re.S)
-    normalForm = "%s \n%s \n%s \n" % (match.group(1)
-                                      , match.group(2)
-                                      , match.group(3))
-    return (normalForm, match.group(4)) if match else (out, out)
+    if match:
+        normalForm = "%s \n%s \n%s \n" % (match.group(1)
+                                          , match.group(2)
+                                          , match.group(3))
+        return (normalForm, match.group(4))
+    else:
+        (out, out)
     # (first, second, height) = stdin.split()
     # height = int(height)
     # return 'First string? \nSecond string? \nHeight? \n' + "\n".join([second*i + first*(height-i-1) for i in range(height)])
@@ -57,7 +60,6 @@ def mirror(n):
     # else:
     #     a = "".join(map(str, range(n+1)))
     #     z = "".join(map(str, range(n+1)[::-1]))
-    #     # Somewhere Norman Ramsey is crying...
     #     return ('Maximum value? \n' + ("%s|%s\n" % (a, z)) * 4).strip()
 
 
