@@ -29,7 +29,7 @@ def diag(stdin):
                                           , match.group(3))
         return (normalForm, match.group(4))
     else:
-        (out, out)
+        return (out, out)
     # (first, second, height) = stdin.split()
     # height = int(height)
     # return 'First string? \nSecond string? \nHeight? \n' + "\n".join([second*i + first*(height-i-1) for i in range(height)])
