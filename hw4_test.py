@@ -7,13 +7,13 @@ Note: Do not run this directly, it is called by hw4.py.
 import re
 from utilities import *
 
-diagPromptsValidationRegex = r"(First string\?)\s*(Second string\?)\s*(Height\?)\s*(\S?.*)"
+diagPromptsValidationRegex = r"([^\?]+\?)\s*([^\?]+\?)\s*([^\?]+\?)\s*(\S?.*)"
 
 def diag(stdin):
     r"""Test diag.
 
     >>> diag('- X 7')[0]  # Does it print the correct prompts?
-    'First string? \nSecond string? \nHeight? \n'
+    'First string? Second string? Height?'
     >>> diag('- X 7')[1]  # Does it handle single characters?
     '------\nX-----\nXX----\nXXX---\nXXXX--\nXXXXX-\nXXXXXX'
     >>> diag('Batman NaNa 6')[1]  # Does it handle multi-character strings?
@@ -24,7 +24,7 @@ def diag(stdin):
     out = testRun("./diag", [], stdin)[1].strip()
     match = re.match(diagPromptsValidationRegex, out, flags=re.S)
     if match:
-        normalForm = "%s \n%s \n%s \n" % (match.group(1)
+        normalForm = "%s %s %s" % (match.group(1)
                                           , match.group(2)
                                           , match.group(3))
         return (normalForm, match.group(4))
@@ -34,7 +34,7 @@ def diag(stdin):
     # height = int(height)
     # return 'First string? \nSecond string? \nHeight? \n' + "\n".join([second*i + first*(height-i-1) for i in range(height)])
 
-mirrorPromptsValidationRegex = r"(Maximum value\?)\s*(\S?.*)"
+mirrorPromptsValidationRegex = r"([^\?]+\?)\s*(\S?.*)"
 
 def mirror(n):
     r"""Test mirror.
