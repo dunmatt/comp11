@@ -28,6 +28,12 @@ def screenFilenames(filenames, submission_filters):
         print "Unrecognized filenames: %s" % ", ".join(not_permitted)
         sys.exit(2)
 
+def screenHost(permitted_hosts):
+    host = run("hostname")[1].strip()
+    if host not in permitted_hosts:
+        print "You cannot submit from this machine, try again from one of: %s" % ", ".join(host_filters)
+        sys.exit(3)
+
 def programCompiled(name):
     return os.path.exists(name)
 
