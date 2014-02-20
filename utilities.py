@@ -71,7 +71,11 @@ def run(program, args=[], stdin=None):
                                   , stderr=tempErr)
     tempOut.seek(0)
     tempErr.seek(0)
-    return (return_code, tempOut.read(), tempErr.read())
+    return (int(return_code), tempOut.read(), tempErr.read())
+
+def readFile(filename):
+    with open(filename) as f:
+        return f.read()
 
 def getScorecard(directory, assignment):
     me = run("whoami")[1].strip()
