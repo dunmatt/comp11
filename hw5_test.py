@@ -50,7 +50,7 @@ def over_avg(stdin):
     (code, out, err) = testRun("./over_avg", [], stdin)
     return (code, float(out.strip()), err.strip())
 
-allData = readFile('all')  # TODO: this is the wrong path...
+allData = readFile('../../tests/hw5/all')
 
 def avg_age(stdin):
     r"""Test avg_age.
