@@ -41,7 +41,7 @@ def over_avg(stdin):
     >>> over_avg('1000 1000 -1000 1000 4 0')[1]  # Does it seem to work?
     3
     >>> over_avg('5 ' * 30000 + '0')[1]  # Does it handle huge inputs?
-    5
+    0
     >>> over_avg('5 ' * 30001 + '0')[0]  # Does it use the proper return code when the input is too big?
     1
     >>> over_avg('5 ' * 30001 + '0')[2]  # Does it print the right error message when too much input is supplied?
