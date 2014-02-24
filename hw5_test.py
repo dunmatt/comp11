@@ -7,6 +7,7 @@ Note: Do not run this directly, it is called by hw4.py.
 import re
 from utilities import *
 
+grabAverageRegex = r""".*?avg\s=\s(-?\d*\.?\d+)"""
 
 def read_years(stdin):
     r"""Test read_years.
@@ -27,7 +28,8 @@ def read_years(stdin):
     'too much input'
     """
     (code, out, err) = testRun("./read_years", [], stdin)
-    return (code, float(out.strip()) if len(out.strip()) else None, err.strip())
+    match = re.match(grabAverageRegex, out)
+    return (code, float(match.group(1)) if match else None, err.strip())
 
 def over_avg(stdin):
     r"""Test over_avg.
@@ -90,5 +92,5 @@ if __name__ == "__main__":
     import doctest
     (failureCount, testCount) = doctest.testmod()
     correctCount = testCount - failureCount
-    print "Assignment hw5 Total: %s / %s" % (correctCount, testCount)
+    print "Assignment 5 Total: %s / %s" % (correctCount, testCount)
 
