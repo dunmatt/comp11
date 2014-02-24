@@ -19,11 +19,11 @@ def read_years(stdin):
     5
     >>> read_years('5 10 -1')[1]  # Does it correctly compute floating point averages?
     7.5
-    >>> read_years(' '.join(range(999)+["-1"]))[1]  # Does it correctly handle large inputs?
+    >>> read_years(' '.join(str(range(999)+[-1])))[1]  # Does it correctly handle large inputs?
     499
-    >>> read_years(' '.join(range(1000)+["-1"]))[0]  # Does it use the proper return code when too much input is supplied?
+    >>> read_years(' '.join(str(range(1000)+[-1])))[0]  # Does it use the proper return code when too much input is supplied?
     1
-    >>> read_years(' '.join(range(1000)+["-1"]))[2]  # Does it print the right error message when too much input is supplied?
+    >>> read_years(' '.join(str(range(1000)+[-1])))[2]  # Does it print the right error message when too much input is supplied?
     'too much input'
     """
     (code, out, err) = testRun("./read_years", [], stdin)
