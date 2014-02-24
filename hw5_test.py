@@ -28,7 +28,7 @@ def read_years(stdin):
     'too much input'
     """
     (code, out, err) = testRun("./read_years", [], stdin)
-    match = re.match(grabAverageRegex, out)
+    match = re.match(grabAverageRegex, out, flags=re.S)
     return (code, float(match.group(1)) if match else out, err.strip())
 
 def over_avg(stdin):
@@ -50,24 +50,26 @@ def over_avg(stdin):
     'too much input'
     """
     (code, out, err) = testRun("./over_avg", [], stdin)
-    return (code, int(out.strip()) if re.match(r"-?\d+$", out.strip()) else out, err.strip())
+    return (code, int(out.strip()) if re.match(r"\d+$", out.strip()) else out, err.strip())
 
 allData = readFile('../../tests/hw5/all')
-
+grabAvgAgeParts = r"""(Enter a name: |.*?)(average age = \d*\.?\d+|name not found)\s*"""
 def avg_age(stdin):
     r"""Test avg_age.
 
     >>> avg_age('1992 Ann\n1993 Bob\n1994 Ann\n1991 Bob\n-1 DONE\nAnn')[0]  # Does it normally return success?
     0
-    >>> avg_age('1992 Ann\n1993 Bob\n1994 Ann\n1991 Bob\n-1 DONE\nAnn')[1]  # Does it work on a simple case?
-    'average age = 21.0'
-    >>> avg_age(allData + 'Xayrined\n')[1]  # Does it work on singleton names in all?
-    'average age = 26.0'
-    >>> avg_age(allData + 'Mary\n')[1][:19]  # Does it work on popular names in all?
+    >>> avg_age('1992 Ann\n1993 Bob\n1994 Ann\n1991 Bob\n-1 DONE\nAnn')[1][0]  # Does it print the correct prompt?
+    'Enter a name: '
+    >>> avg_age('1992 Ann\n1993 Bob\n1994 Ann\n1991 Bob\n-1 DONE\nAnn')[1][1][:16]  # Does it work on a simple case?
+    'average age = 21'
+    >>> avg_age(allData + 'Xayrined\n')[1][1][:16]  # Does it work on singleton names in all?
+    'average age = 26'
+    >>> avg_age(allData + 'Mary\n')[1][1][:19]  # Does it work on popular names in all?
     'average age = 61.48'
-    >>> avg_age(allData + 'Zaphod\n')[1]  # Does it have the right error messages for people that don't appear?
+    >>> avg_age(allData + 'Zaphod\n')[1][1]  # Does it have the right error messages for people that don't appear?
     'name not found'
-    >>> avg_age(allData + 'DONE\n')[1]  # Does it correctly not store the sentinel?
+    >>> avg_age(allData + 'DONE\n')[1][1]  # Does it correctly not store the sentinel?
     'name not found'
     >>> avg_age('1970 Unix\n' * 50001 + '-1 DONE')[0]  # Does it use the proper return code when the input is too big?
     1
@@ -75,7 +77,9 @@ def avg_age(stdin):
     'too much data'
     """
     (code, out, err) = testRun("./avg_age", [], stdin)
-    return (code, out.strip(), err.strip())
+    match = re.match(grabAvgAgeParts, out, flags=re.S)
+    parts = (match.group(1), match.group(2)) if match else (out, out)
+    return (code, parts, err.strip())
     # from collections import defaultdict
     # d = defaultdict(list)
     # lines = stdin.strip().split("\n")
