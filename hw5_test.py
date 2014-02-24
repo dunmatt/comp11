@@ -16,8 +16,8 @@ def read_years(stdin):
     0
     >>> read_years('4 5 6 -1')[1]  # Does it correctly compute integer averages?
     5.0
-    >>> read_years('-100 5 100 -1')[1]  # Does it correctly handle negative numbers?
-    5.0
+    >>> read_years('-100 6 100 -1')[1]  # Does it correctly handle negative numbers?
+    2.0
     >>> read_years('5 10 -1')[1]  # Does it correctly compute floating point averages?
     7.5
     >>> read_years(' '.join(str(range(999)+[-1])))[1]  # Does it correctly handle large inputs?
