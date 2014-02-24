@@ -53,7 +53,7 @@ def over_avg(stdin):
     return (code, int(out.strip()) if re.match(r"\d+$", out.strip()) else out, err.strip())
 
 allData = readFile('../../tests/hw5/all')
-grabAvgAgeParts = r"""(Enter a name: |\D{0,14})\s*(average age = \d*\.?\d+|name not found|.*)\s*"""
+grabAvgAgeParts = r"""(Enter a name: |\D{0,14})(average age = \d*\.?\d+|name not found|.*)\s*"""
 def avg_age(stdin):
     r"""Test avg_age.
 
@@ -78,7 +78,7 @@ def avg_age(stdin):
     """
     (code, out, err) = testRun("./avg_age", [], stdin)
     match = re.match(grabAvgAgeParts, out, flags=re.S)
-    parts = (match.group(1), match.group(2)) if match else (out, out)
+    parts = (match.group(1), match.group(2).strip()) if match else (out, out)
     return (code, parts, err.strip())
     # from collections import defaultdict
     # d = defaultdict(list)
