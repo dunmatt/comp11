@@ -27,7 +27,7 @@ def read_years(stdin):
     'too much input'
     """
     (code, out, err) = testRun("./read_years", [], stdin)
-    return (code, float(out.strip()), err.strip())
+    return (code, float(out.strip()) if len(out.strip()) else None, err.strip())
 
 def over_avg(stdin):
     r"""Test over_avg.
@@ -48,7 +48,7 @@ def over_avg(stdin):
     'too much input'
     """
     (code, out, err) = testRun("./over_avg", [], stdin)
-    return (code, int(out.strip()), err.strip())
+    return (code, int(out.strip()) if len(out.strip()) else None, err.strip())
 
 allData = readFile('../../tests/hw5/all')
 
