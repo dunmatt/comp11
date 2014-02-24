@@ -48,7 +48,7 @@ def over_avg(stdin):
     'too much input'
     """
     (code, out, err) = testRun("./over_avg", [], stdin)
-    return (code, float(out.strip()), err.strip())
+    return (code, int(out.strip()), err.strip())
 
 allData = readFile('../../tests/hw5/all')
 

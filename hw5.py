@@ -24,7 +24,8 @@ if __name__ == "__main__":
     (code1, _, err1) = build(["over_avg.cpp"], "over_avg")
     (code2, _, err2) = build(["avg_age.cpp"], "avg_age")
 
-    with getScorecard(arguments["<dir>"], "hw5") as f:
+    # create thing called testhw5 so that t will work
+    with getReport() as f:
         (return_code, stdout, stderr) = run("../../tests/hw5/hw5_test.py")
         f.write(stdout)
         print stdout

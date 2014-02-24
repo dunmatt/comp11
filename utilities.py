@@ -80,3 +80,12 @@ def readFile(filename):
 def getScorecard(directory, assignment):
     me = run("whoami")[1].strip()
     return open("%s/scorecards/%s/%s" % (directory, assignment, me), mode="w+")
+
+def getReport():
+    if not os.path.exists("grading"):
+        makeGrading()
+    return open("grading/REPORT", mode="w+")
+
+def makeGrading():
+    os.makedirs("grading", "02770")  # magic 02770 here is file permissions
+    run("chgrp", ["grade11", "grading"])
