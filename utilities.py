@@ -87,5 +87,5 @@ def getReport():
     return open("grading/REPORT", mode="w+")
 
 def makeGrading():
-    os.makedirs("grading", "02770")  # magic 02770 here is file permissions
+    os.makedirs("grading", 02770)  # magic 02770 here is file permissions
     run("chgrp", ["grade11", "grading"])
