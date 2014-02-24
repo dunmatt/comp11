@@ -29,7 +29,7 @@ def read_years(stdin):
     """
     (code, out, err) = testRun("./read_years", [], stdin)
     match = re.match(grabAverageRegex, out)
-    return (code, float(match.group(1)) if match else None, err.strip())
+    return (code, float(match.group(1)) if match else out, err.strip())
 
 def over_avg(stdin):
     r"""Test over_avg.
