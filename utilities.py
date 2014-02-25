@@ -31,7 +31,7 @@ def screenFilenames(filenames, submission_filters):
 def screenHost(permitted_hosts):
     host = run("hostname")[1].strip()
     if host not in permitted_hosts:
-        print "You cannot submit from this machine, try again from one of: %s" % ", ".join(host_filters)
+        print "You cannot submit from this machine, try again from one of: %s" % ", ".join(permitted_hosts)
         sys.exit(3)
 
 def programCompiled(name):
