@@ -69,7 +69,7 @@ def avg_age(stdin):
     'average age = 61.48'
     >>> avg_age(allData + 'Zaphod\n')[1][1]  # Does it have the right error messages for people that don't appear?
     'name not found'
-    >>> avg_age(allData + 'DONE\n')[1][1]  # Does it correctly not store the sentinel?
+    >>> avg_age(allData + 'DONE\n')[1][1]  # Does it correctly not report an age for the sentinel?
     'name not found'
     >>> avg_age('1970 Unix\n' * 50001 + '-1 DONE')[0]  # Does it use the proper return code when the input is too big?
     1
