@@ -53,7 +53,7 @@ def over_avg(stdin):
     return (code, int(out.strip()) if re.match(r"\d+$", out.strip()) else out, err.strip())
 
 allData = readFile('../../tests/hw5/all')
-grabAvgAgeParts = r"""(Enter a name: |\D{0,14})\n?(average age = \d*\.?\d+|name not found|.*)\s*"""
+grabAvgAgeParts = r"""(Enter a name:\s|\D{0,14})\n?(average age = \d*\.?\d+|name not found|.*)\s*"""
 def avg_age(stdin):
     r"""Test avg_age.
 
