@@ -5,9 +5,9 @@
 import fnmatch
 import os
 import re
-import subprocess
+from subprocess import Popen, PIPE
 import sys
-from tempfile import TemporaryFile
+from threading import Timer
 
 def screenFilenames(filenames, submission_filters):
     fs = set(filenames)
@@ -64,27 +64,27 @@ def lineMatchesIn(filename, regex):
 def build(sources, binary):
     return run("g++", ["-Wall", "-Wextra"] + sources + ["-o", binary])
 
-def testRun(program, args=[], stdin=None):
+def testRun(program, args=[], stdin="", timout=3):
     if programCompiled(program):
-        return run(program, args, stdin)
+        return run(program, args, stdin, timout)
     else:
         raise Exception("Cannot run %s since it did not compile..." % program)
 
-def run(program, args=[], stdin=None):
-    tempIn = TemporaryFile(mode="w+")
-    if stdin:
-        tempIn.write(stdin)
-        tempIn.seek(0)
-    tempOut = TemporaryFile(mode="w+")
-    tempErr = TemporaryFile(mode="w+")
-    cmd = [program] + args
-    return_code = subprocess.call(cmd
-                                  , stdin=tempIn
-                                  , stdout=tempOut
-                                  , stderr=tempErr)
-    tempOut.seek(0)
-    tempErr.seek(0)
-    return (int(return_code), tempOut.read(), tempErr.read())
+def run(program, args=[], stdin="", timout=3):
+    p = Popen([program] + args, stdin=PIPE, stdout=PIPE, stderr=PIPE)
+    p.stdin.write(stdin)
+    def killProcess():
+        if p.poll() == None:
+            try:
+                p.kill()
+                print "Killing %s because it took to long on input %s" % (program, stdin)
+            except:
+                pass
+    timer = Timer(timout, killProcess)
+    timer.start()
+    p.wait()
+    timer.cancel()
+    return (int(p.returncode), p.stdout.read(), p.stderr.read())
 
 def readFile(filename):
     with open(filename) as f:
