@@ -15,7 +15,6 @@ Options:
 """
 
 import re
-import sys
 
 def parseSpec(rawSpec):
     # returns a list of triples: (digit, row, col)
@@ -46,7 +45,7 @@ def getConflicts(a, spec, dh, dw):
     return [(a, b) for b in spec if isConflict(a, b, dh, dw)]
 
 def isOnBoard(a, h, w, dh, dw):
-    return a[1] + dh < h and a[2] + dw < w
+    return a[1] + dh <= h and a[2] + dw <= w
 
 def getValidCharacters(spec, h, w, dh, dw):
     return [c for c in spec if isOnBoard(c, h, w, dh, dw)
@@ -55,7 +54,7 @@ def getValidCharacters(spec, h, w, dh, dw):
 def getEmptyBoard(h, w):
     return ["." * w for _ in range(h)]
 
-def getBoard(h, w, digits, spec):
+def makeBoard(h, w, digits, spec):
     board = getEmptyBoard(h, w)
     for s in spec:
         d = digits[s[0]]
@@ -65,6 +64,7 @@ def getBoard(h, w, digits, spec):
     return board
 
 if __name__ == "__main__":
+    import sys
     from docopt import docopt
     args = docopt(__doc__, version="Project 1 Plate Generator v2014s")
 
@@ -76,10 +76,11 @@ if __name__ == "__main__":
     valid = getValidCharacters(spec, h, w, dh, dw)
     digits = readDatFile(args["--digits_file"])
     if len(spec) == len(valid):
-        board = getBoard(h, w, digits, valid)
+        board = makeBoard(h, w, digits, valid)
         for row in board:
             print row
         print ""
     else:
         for err in set(spec) - set(valid):
             print "%s @ %s,%s is invalid." % (err[0], err[1], err[2])
+        sys.exit(1)
