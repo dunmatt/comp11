@@ -34,11 +34,18 @@ def screenHost(permitted_hosts):
         print "You cannot submit from this machine, try again from one of: %s" % ", ".join(permitted_hosts)
         sys.exit(3)
 
-def screenUname(regex=r""):
-    pass
+def screenUname(versionSubstring):
+    if versionSubstring not in run("uname", ["-a"])[1]:
+        print "The version of linux you are submitting from is too old, try logging into homework.cs.tufts.edu to provide!"
+        sys.exit(4)
 
-def screenGxx(versionTuple):
-    pass
+def screenGxx(minimumVersion):
+    versionRaw = run("g++", ["--version"])[0]
+    match = re.search(r"g\++\D+(\d+)\.(\d+)\.(\d+).*", versionRaw, flags=re.S)
+    version = (int(match.group(1)), int(match.group(2)), int(match.group(3)))
+    if version < minimumVersion:
+        print "The version of G++ on your machine is too old, try logging into homework.cs.tufts.edu to provide!"
+        sys.exit(5)
 
 def programCompiled(name):
     return os.path.exists(name)
