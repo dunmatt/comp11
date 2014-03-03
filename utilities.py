@@ -34,6 +34,12 @@ def screenHost(permitted_hosts):
         print "You cannot submit from this machine, try again from one of: %s" % ", ".join(permitted_hosts)
         sys.exit(3)
 
+def screenUname(regex=r""):
+    pass
+
+def screenGxx(versionTuple):
+    pass
+
 def programCompiled(name):
     return os.path.exists(name)
 
