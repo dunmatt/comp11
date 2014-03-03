@@ -8,16 +8,16 @@ Usage:
 from utilities import *
 
 submission_filters = {
-    "required": ["ddr.cpp", "ddrlib.cpp"]
+    "required": ["ddr.cpp", "ddrlib.cpp", "ddrlib.h"]
     , "permitted": []
 }
 
-submission_host_filters = ["dell24"]
+# submission_host_filters = ["dell24"]
 
 if __name__ == "__main__":
     from docopt import docopt
     arguments = docopt(__doc__, version="Tufts Comp11 Project1 v2014s")
-    screenHost(submission_host_filters)
+    # screenHost(submission_host_filters)
     screenUname(".el6")
     screenGxx((4, 8, 0))  # this means g++ >= 4.8.0
     screenFilenames(arguments["<files>"], submission_filters)

@@ -7,6 +7,11 @@ Note: Do not run this directly, it is called by proj1.py.
 import re
 from utilities import *
 
+def ddr(stdin):
+    """Test project1.
+    """
+    pass
+
 # grabAverageRegex = r""".*?avg\s=\s(-?\d*\.?\d+)"""
 
 # def read_years(stdin):
