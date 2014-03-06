@@ -77,7 +77,7 @@ def run(program, args=[], stdin="", timeout=60):
         if p.poll() == None:
             try:
                 p.kill()
-                print "Killing %s because it took to long on input %s" % (program, stdin)
+                print "Killing %s because it took longer than %ss on input %s" % (program, timeout, stdin)
             except:
                 pass
     timer = Timer(timeout, killProcess)
