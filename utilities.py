@@ -70,7 +70,7 @@ def testRun(program, args=[], stdin="", timout=3):
     else:
         raise Exception("Cannot run %s since it did not compile..." % program)
 
-def run(program, args=[], stdin="", timout=3):
+def run(program, args=[], stdin="", timout=60):
     p = Popen([program] + args, stdin=PIPE, stdout=PIPE, stderr=PIPE)
     p.stdin.write(stdin)
     def killProcess():
