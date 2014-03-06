@@ -64,13 +64,13 @@ def lineMatchesIn(filename, regex):
 def build(sources, binary):
     return run("g++", ["-Wall", "-Wextra"] + sources + ["-o", binary])
 
-def testRun(program, args=[], stdin="", timout=3):
+def testRun(program, args=[], stdin="", timeout=3):
     if programCompiled(program):
-        return run(program, args, stdin, timout)
+        return run(program, args, stdin, timeout)
     else:
         raise Exception("Cannot run %s since it did not compile..." % program)
 
-def run(program, args=[], stdin="", timout=60):
+def run(program, args=[], stdin="", timeout=60):
     p = Popen([program] + args, stdin=PIPE, stdout=PIPE, stderr=PIPE)
     p.stdin.write(stdin)
     def killProcess():
@@ -80,7 +80,7 @@ def run(program, args=[], stdin="", timout=60):
                 print "Killing %s because it took to long on input %s" % (program, stdin)
             except:
                 pass
-    timer = Timer(timout, killProcess)
+    timer = Timer(timeout, killProcess)
     timer.start()
     p.wait()
     timer.cancel()

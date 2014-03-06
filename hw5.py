@@ -26,7 +26,8 @@ if __name__ == "__main__":
 
     # create thing called testhw5 so that t will work
     with getReport() as f:
-        (return_code, stdout, stderr) = run("../../tests/hw5/hw5_test.py")
+        (return_code, stdout, stderr) = run("../../tests/hw5/hw5_test.py"
+                                            , timeout=300)
         f.write(stdout)
         print stdout
 
