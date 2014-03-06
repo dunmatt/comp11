@@ -72,7 +72,6 @@ def testRun(program, args=[], stdin="", timeout=3):
 
 def run(program, args=[], stdin="", timeout=60):
     p = Popen([program] + args, stdin=PIPE, stdout=PIPE, stderr=PIPE)
-    p.stdin.write(stdin)
     def killProcess():
         if p.poll() == None:
             try:
@@ -82,9 +81,9 @@ def run(program, args=[], stdin="", timeout=60):
                 pass
     timer = Timer(timeout, killProcess)
     timer.start()
-    p.wait()
+    (out, err) = p.communicate(stdin)
     timer.cancel()
-    return (int(p.returncode), p.stdout.read(), p.stderr.read())
+    return (int(p.returncode), out, err)
 
 def readFile(filename):
     with open(filename) as f:
