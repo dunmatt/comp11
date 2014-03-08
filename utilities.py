@@ -71,7 +71,7 @@ def testRun(program, args=[], stdin="", timeout=3):
         raise Exception("Cannot run %s since it did not compile..." % program)
 
 def run(program, args=[], stdin="", timeout=60):
-    os.environ["PATH"] = "/usr/sup/bin/" + os.envoron("PATH"],".")
+    os.environ["PATH"] = "/usr/sup/bin/:" + os.environ.get("PATH",".")
     p = Popen([program] + args, stdin=PIPE, stdout=PIPE, stderr=PIPE)
     def killProcess():
         if p.poll() == None:

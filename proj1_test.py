@@ -8,7 +8,7 @@ import proj1_make_plate
 import re
 from utilities import *
 
-digits = proj1_make_plate.readDataFile("digits.dat")
+digits = proj1_make_plate.readDataFile("../../tests/proj1/digits.dat")
 
 def plate(rawSpec):
     spec = proj1_make_plate.parseSpec(rawSpec)
@@ -32,7 +32,7 @@ def ddr(stdin):
     >>> ddr(plate("1 @ 0,0 2 @ 8,0 3 @ 0,6 4 @ 8,6 5 @ 8,13 6 @ 0,14 -1"))  # Does it return numbers in the correct order?
     '1 @ 0,0 2 @ 8,0 3 @ 0,6 4 @ 8,6 5 @ 8,13 6 @ 0,14 -1'
     """
-    (code, out, err) = testRun("./ddr", ["digits.dat"], stdin)
+    (code, out, err) = testRun("./ddr", ["digits.dat"], "\n".join(stdin))
     return out.strip()
 
 
