@@ -26,7 +26,7 @@ if __name__ == "__main__":
 
     # create thing called testhw5 so that t will work
     with getReport() as f:
-        (return_code, stdout, stderr) = run("../../tests/proj1/proj1_test.py")
+        (return_code, stdout, stderr) = run("python", ["../../tests/proj1/proj1_test.py"])
         f.write(stdout)
         print stdout
 
