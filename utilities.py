@@ -40,7 +40,7 @@ def screenUname(versionSubstring):
         sys.exit(4)
 
 def screenGxx(minimumVersion):
-    versionRaw = run("g++", ["--version"])[0]
+    versionRaw = run("g++", ["--version"])[1]
     match = re.search(r"g\++\D+(\d+)\.(\d+)\.(\d+).*", versionRaw, flags=re.S)
     version = (int(match.group(1)), int(match.group(2)), int(match.group(3)))
     if version < minimumVersion:
@@ -71,6 +71,7 @@ def testRun(program, args=[], stdin="", timeout=3):
         raise Exception("Cannot run %s since it did not compile..." % program)
 
 def run(program, args=[], stdin="", timeout=60):
+    os.environ["PATH"] = "/usr/sup/bin/" + os.envoron("PATH"],".")
     p = Popen([program] + args, stdin=PIPE, stdout=PIPE, stderr=PIPE)
     def killProcess():
         if p.poll() == None:
