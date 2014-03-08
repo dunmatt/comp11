@@ -8,7 +8,7 @@ import proj1_make_plate
 import re
 from utilities import *
 
-digits = proj1_make_plate.readDataFile("../../tests/proj1/digits.dat")
+digits = proj1_make_plate.readDatFile("../../tests/proj1/digits.dat")
 
 def plate(rawSpec):
     spec = proj1_make_plate.parseSpec(rawSpec)
