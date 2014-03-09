@@ -8,8 +8,8 @@ Usage:
 from utilities import *
 
 submission_filters = {
-    "required": ["ddr.cpp", "ddrlib.cpp", "ddrlib.h"]
-    , "permitted": []
+    "required": ["ddr.cpp"]
+    , "permitted": ["ddrlib.cpp", "ddrlib.h"]
 }
 
 # submission_host_filters = ["dell24"]
@@ -21,7 +21,7 @@ if __name__ == "__main__":
     screenUname(".el6")
     screenGxx((4, 8, 0))  # this means g++ >= 4.8.0
     screenFilenames(arguments["<files>"], submission_filters)
-
+    run("cp", ["-n", "../../tests/proj1/ddrlib*", "."])
     (code0, _, err0) = build(["ddr.cpp", "ddrlib.cpp"], "ddr")
 
     # create thing called testhw5 so that t will work
