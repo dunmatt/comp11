@@ -21,7 +21,8 @@ if __name__ == "__main__":
     screenUname(".el6")
     screenGxx((4, 8, 0))  # this means g++ >= 4.8.0
     screenFilenames(arguments["<files>"], submission_filters)
-    run("cp", ["-n", "../../tests/proj1/ddrlib*", "."])
+    run("cp", ["../../tests/proj1/ddrlib.h", "."])
+    run("cp", ["../../tests/proj1/ddrlib.cpp", "."])
     (code0, _, err0) = build(["ddr.cpp", "ddrlib.cpp"], "ddr")
 
     # create thing called testhw5 so that t will work
