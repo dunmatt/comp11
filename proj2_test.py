@@ -51,7 +51,7 @@ NNNNNNNNNNNNNNNNNNNNNNNNNNMNNNDNNNNNNNNNNNNNNNNNNNNNNNNNNNNN""")
 }
 
 # "".join(list(set(list("".join([f[2] for f in fishImages.values()])))))  # to calculate next line's literal
-expectedChars = '\n "$\'+\\-,/78:=<?>BDIMONPYZUTCOAZNM\\\\_a`bdl~'
+expectedChars = ' "$\'+\\-,/78:=<?>BDIMONPYZUTCOAZNM\\\\_a`bdl~'
 
 def makeFishString(fish):
   return "fish %s %s %s %s %s %s %s\n%s\n" % (fishImages[fish[4]][0]
@@ -79,7 +79,7 @@ def goFishing(tankSize=(40, 80),
   <BLANKLINE>
   <BLANKLINE>
   >>> # referenceSolution((10, 52), [(0,0, 0,0, "aviators")])
-  >>> goFishing((10, 52), [(0,0, 0,0, "aviators")])  # one multiline "fish" drawn correctly
+  >>> goFishing((10, 52), [(0,0, 0,0, "aviators")])  # multiline "fish" drawn correctly
    _,a========Y88888888888888888888888888========a,_  
   dP                  `"b,    ,d"'                 Yb 
   8l                    8l____8l                    8l
@@ -303,12 +303,13 @@ def goFishing(tankSize=(40, 80),
   """
   stdin = makeInputString(tankSize, fish)
   (_, stdout, _) = run("./SimFishy", [], stdin, 2, False)
-  frameList = listifyFrames(stdout)
+  frameList = listifyFrames(stdout, tankSize[0])
+  # print frameList
   for fNum in frames:
     print frameList[fNum][:-1]
 
-def listifyFrames(stdout):
-  return re.findall("[%s]+" % expectedChars, stdout)
+def listifyFrames(stdout, lineCount):
+  return re.findall("(?:[%s]+\n){%s}" % (expectedChars, lineCount), stdout)
 
 def makeEmptyTank(size):
   return (size, [[" " for _ in range(size[1])] for _ in range(size[0])])
@@ -333,6 +334,11 @@ def referenceSolution(tankSize, fish, frame=0):
 if __name__ == "__main__":
   import doctest
   print "These tests take 34 seconds to run, be patient"
+  print "When something goes wrong, the way to read the test case is"
+  print "goFishing((1, 10), [(0,3, 0,-1, 'minnow')], range(4))   ===>"
+  print "the first 4 frames of SimFishy given the input:"
+  print "tank 1 10\nfish 1 3 0 3 0 -1 minnow\n><>\nEOF"
+  print ""
   (failureCount, testCount) = doctest.testmod()
   correctCount = testCount - failureCount
   print "Project 1 Total: %s / %s" % (correctCount, testCount)
