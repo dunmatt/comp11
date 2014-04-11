@@ -70,14 +70,15 @@ def testRun(program, args=[], stdin="", timeout=3):
     else:
         raise Exception("Cannot run %s since it did not compile..." % program)
 
-def run(program, args=[], stdin="", timeout=60):
+def run(program, args=[], stdin="", timeout=60, loud=True):
     os.environ["PATH"] = "/usr/sup/bin/:" + os.environ.get("PATH",".")
     p = Popen([program] + args, stdin=PIPE, stdout=PIPE, stderr=PIPE)
     def killProcess():
         if p.poll() == None:
             try:
                 p.kill()
-                print "Killing %s because it took longer than %ss on input %s" % (program, timeout, stdin)
+                if loud:
+                    print "Killing %s because it took longer than %ss on input %s" % (program, timeout, stdin)
             except:
                 pass
     timer = Timer(timeout, killProcess)
