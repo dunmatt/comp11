@@ -12,6 +12,14 @@ submission_filters = {
     , "permitted": []
 }
 
+def buildTable(version="1"):
+  run("rm", ["-f", "FrequencyTable.h", "FrequencyTable.o"])
+  run("ln", ["-s", "FrequencyTable%s.h" % version, "FrequencyTable.h"])
+  return build(["wordfreq.cpp"
+                , "FrequencyTable%s.cpp" % version
+                , "WordFreqList.cpp"
+               ], "wordfreq%s" % version)
+
 if __name__ == "__main__":
     from docopt import docopt
     arguments = docopt(__doc__, version="Tufts Comp11 Project1 v2014s")
@@ -24,7 +32,7 @@ if __name__ == "__main__":
 
     # create thing called testhw5 so that t will work
     with getReport() as f:
-        (return_code, stdout, stderr) = run("python", ["../../tests/proj1/proj3_test.py"])
+        (return_code, stdout, stderr) = run("python", ["../../tests/proj3/proj3_test.py"])
         f.write(stdout)
         print stdout
 
