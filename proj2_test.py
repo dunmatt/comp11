@@ -176,7 +176,7 @@ def goFishing(tankSize=(40, 80),
     ><>
   <BLANKLINE>
   <BLANKLINE>
-  >>> goFishing((1, 10), [(0,0, 0,.5, "minnow")], range(8))  # TODO: horizontal floating point motion
+  >>> goFishing((1, 10), [(0,0, 0,.5, "minnow")], range(8))  # horizontal floating point motion
   ><>       
   ><>       
    ><>      
